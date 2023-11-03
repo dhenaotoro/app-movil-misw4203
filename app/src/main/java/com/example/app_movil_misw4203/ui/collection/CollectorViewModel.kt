@@ -6,15 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.app_movil_misw4203.data.CollectorDTO
-import com.example.app_movil_misw4203.network.NetworkServiceAdapter
-import com.example.app_movil_misw4203.ui.home.CollectorViewModel
+import com.example.app_movil_misw4203.model.dto.Collector
 
-class CollectionViewModel(application: Application) :  AndroidViewModel(application) {
+class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
 
-  private val _collector = MutableLiveData<List<CollectorDTO>>()
+  private val _collector = MutableLiveData<List<Collector>>()
 
-  val colleectors: LiveData<List<CollectorDTO>>
+  val collectors: LiveData<List<Collector>>
     get() = _collector
 
   private var _eventNetworkError = MutableLiveData<Boolean>(false)
@@ -28,17 +26,17 @@ class CollectionViewModel(application: Application) :  AndroidViewModel(applicat
     get() = _isNetworkErrorShown
 
   init {
-    refreshDataFromNetwork()
+    refreshCollectorsFromNetwork()
   }
 
-  private fun refreshDataFromNetwork() {
-    NetworkServiceAdapter.getInstance(getApplication()).getCollectors({
+  private fun refreshCollectorsFromNetwork() {
+    /*CollectorServiceAdapter.getInstance(getApplication()).getCollectors({
       _collector.postValue(it)
       _eventNetworkError.value = false
       _isNetworkErrorShown.value = false
     },{
       _eventNetworkError.value = true
-    })
+    })*/
   }
 
   fun onNetworkErrorShown() {
@@ -46,7 +44,7 @@ class CollectionViewModel(application: Application) :  AndroidViewModel(applicat
   }
 
   class Factory(val app: Application) : ViewModelProvider.Factory {
-    fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
       if (modelClass.isAssignableFrom(CollectorViewModel::class.java)) {
         @Suppress("UNCHECKED_CAST")
         return CollectorViewModel(app) as T

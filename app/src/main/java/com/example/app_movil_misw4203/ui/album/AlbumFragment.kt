@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.app_movil_misw4203.databinding.FragmentAlbumBinding
+import com.example.app_movil_misw4203.ui.album.AlbumViewModel
 
 class AlbumFragment : Fragment() {
 
@@ -22,15 +23,15 @@ class AlbumFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    val homeViewModel =
-      ViewModelProvider(this).get(CollectorViewModel::class.java)
+    val albumViewModel =
+      ViewModelProvider(this)[AlbumViewModel::class.java]
 
     _binding = FragmentAlbumBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-    val textView: TextView = binding.textHome
-    homeViewModel.text.observe(viewLifecycleOwner) {
-      textView.text = it
+    val textView: TextView = binding.albums
+    albumViewModel.albums.observe(viewLifecycleOwner) { albums ->
+      textView.text = albums.toString()
     }
     return root
   }

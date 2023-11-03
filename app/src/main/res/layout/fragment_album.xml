@@ -7,7 +7,7 @@
     tools:context=".ui.home.AlbumFragment">
 
     <TextView
-        android:id="@+id/text_home"
+        android:id="@+id/albums"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,14 +20,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintVertical_bias="0.525" />
 
-  <ImageView
-    android:id="@+id/imageView"
-    android:layout_width="409dp"
-    android:layout_height="399dp"
-    android:src="@drawable/albums"
-    tools:ignore="MissingConstraints"
-    tools:layout_editor_absoluteX="-2dp"
-    tools:layout_editor_absoluteY="0dp" />
+    <ImageView
+        android:id="@+id/albumImage"
+        android:layout_width="340dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/albums"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="254dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/albums"
+        tools:layout_editor_absoluteX="1dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
