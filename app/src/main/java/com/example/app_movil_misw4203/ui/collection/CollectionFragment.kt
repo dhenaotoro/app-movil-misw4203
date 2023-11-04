@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.app_movil_misw4203.databinding.FragmentCollectionBinding
 
-class CollectorFragment : Fragment() {
+class CollectionFragment : Fragment() {
 
   private var _binding: FragmentCollectionBinding? = null
 
@@ -22,15 +22,15 @@ class CollectorFragment : Fragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    val collectorViewModel =
-      ViewModelProvider(this)[CollectorViewModel::class.java]
+    val slideshowViewModel =
+      ViewModelProvider(this).get(CollectionViewModel::class.java)
 
     _binding = FragmentCollectionBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-    val textView: TextView = binding.collectors
-    collectorViewModel.collectors.observe(viewLifecycleOwner) { collectors ->
-      textView.text = collectors.toString()
+    val textView: TextView = binding.textSlideshow
+    slideshowViewModel.text.observe(viewLifecycleOwner) {
+      textView.text = it
     }
     return root
   }
