@@ -10,4 +10,8 @@
     <string name="menu_album">Album</string>
     <string name="menu_artist">Artista</string>
     <string name="menu_collection">Colección</string>
+    <string name="album_row">Album</string>
+    <string name="performer_row">Album</string>
+    <string name="album_description">Albumes</string>
+    <string name="album_description_parte2">Busca tu album favorito</string>
 </resources>
