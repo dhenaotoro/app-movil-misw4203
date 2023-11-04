@@ -7,7 +7,7 @@
 >
   <fragment
     android:id="@+id/nav_home"
-    android:name="com.example.app_movil_misw4203.ui.home.AlbumFragment"
+    android:name="com.example.app_movil_misw4203.ui.album.AlbumFragment"
     android:label="@string/menu_album"
     tools:layout="@layout/fragment_album"
   />

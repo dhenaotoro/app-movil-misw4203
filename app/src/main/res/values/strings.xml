@@ -10,4 +10,5 @@
     <string name="menu_album">Album</string>
     <string name="menu_artist">Artista</string>
     <string name="menu_collection">Colección</string>
+    <string name="element_text">Hola</string>
 </resources>
