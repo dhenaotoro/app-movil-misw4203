@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -32,9 +33,6 @@ class AlbumFragment : Fragment() {
     _binding = FragmentAlbumBinding.inflate(inflater, container, false)
     val root: View = binding.root
 
-    val textView: TextView = binding.albums
-    textView.text = "Elije tu album"
-
     val albumRecyclerView: RecyclerView = binding.albumRecyclerView
 
     albumViewModel.albums.observe(viewLifecycleOwner) { albums ->
@@ -60,11 +58,15 @@ class CustomAdapter(private val dataSet: List<Album>) :
    * (custom ViewHolder)
    */
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val textView: TextView
+    val albumTextView: TextView
+    val performerTextView: TextView
+    val coverImage: ImageView
 
     init {
       // Define click listener for the ViewHolder's View
-      textView = view.findViewById(R.id.textView)
+      albumTextView = view.findViewById(R.id.album)
+      performerTextView = view.findViewById(R.id.performer)
+      coverImage = view.findViewById(R.id.cover)
     }
   }
 
@@ -83,7 +85,14 @@ class CustomAdapter(private val dataSet: List<Album>) :
     // Get element from your dataset at this position and replace the
     // contents of the view with that element
     println("ENTROOOOO ${dataSet[position]}")
-    viewHolder.textView.text = dataSet[position].name
+    viewHolder.albumTextView.text = dataSet[position].name
+    viewHolder.performerTextView.text = dataSet[position].performers.let {
+      when (it.isEmpty()) {
+        true -> "Album"
+        else -> it.first().name
+      }
+    }
+    //viewHolder.coverImage.
   }
 
   // Return the size of your dataset (invoked by the layout manager)

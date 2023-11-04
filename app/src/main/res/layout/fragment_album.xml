@@ -7,13 +7,27 @@
     tools:context=".ui.album.AlbumFragment">
 
     <TextView
-        android:id="@+id/albums"
+        android:id="@+id/description_album"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
+        android:text="@string/album_description"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/albumImage"
+        app:layout_constraintTop_toBottomOf="@+id/albumImage" />
+
+    <TextView
+        android:id="@+id/description_album_part2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/album_description_parte2"
+        android:textAlignment="center"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/albumImage"
         app:layout_constraintTop_toBottomOf="@+id/albumImage" />
 
