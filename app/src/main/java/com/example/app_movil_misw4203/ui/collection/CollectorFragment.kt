@@ -52,10 +52,6 @@ class CollectorFragment : Fragment() {
 class CustomAdapter(private val dataSet: List<Collector>) :
   RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-  /**
-   * Provide a reference to the type of views that you are using
-   * (custom ViewHolder)
-   */
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val collectorTextView: TextView
     val performerTextView: TextView
