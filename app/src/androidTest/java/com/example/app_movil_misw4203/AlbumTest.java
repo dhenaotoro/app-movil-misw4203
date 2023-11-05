@@ -12,6 +12,10 @@ import static org.hamcrest.CoreMatchers.allOf;
 
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.ViewInteraction;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.contrib.DrawerActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 
@@ -24,9 +28,13 @@ public class AlbumTest {
 
     @Test
     public void testAlbumMenuItem() {
-        // Click on the hamburger icon to open the menu.
-        onView(withId(R.id.app_bar_main)).perform(click());
-        onView(allOf(withText("Album"), isDescendantOfA(withId(R.id.app_bar_main)))).perform(click());
+        // Abre el icono de navegación de la izquierda
+        onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open());
+
+        // Encontrar y hacer clikc en el elemento que corresponde a los albumes ID nav_home.
+        ViewInteraction navSlideshowItem = onView(ViewMatchers.withId(R.id.nav_home))
+                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+                .perform(ViewActions.click());
     }
 
 }
