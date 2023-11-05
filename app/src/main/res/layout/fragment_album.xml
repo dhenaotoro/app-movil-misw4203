@@ -10,8 +10,8 @@
   <ScrollView
     android:layout_width="412dp"
     android:layout_height="737dp"
-    tools:ignore="MissingConstraints">
-
+    tools:ignore="MissingConstraints"
+  >
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -27,7 +27,6 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="35dp"
       />
-
       <TextView
         android:id="@+id/description_album"
         android:layout_width="wrap_content"
@@ -41,7 +40,6 @@
         app:layout_constraintStart_toStartOf="@+id/albumImage"
         app:layout_constraintTop_toBottomOf="@+id/albumImage"
       />
-
       <TextView
         android:id="@+id/description_album_part2"
         android:layout_width="wrap_content"
@@ -53,7 +51,6 @@
         app:layout_constraintStart_toStartOf="@+id/albumImage"
         app:layout_constraintTop_toBottomOf="@+id/albumImage"
       />
-
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/albumRecyclerView"
         android:layout_width="398dp"
@@ -65,11 +62,8 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/albumImage"
-        app:layout_constraintTop_toBottomOf="@+id/albums"
         app:layout_constraintVertical_bias="0.142"
       />
     </LinearLayout>
-
-
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
