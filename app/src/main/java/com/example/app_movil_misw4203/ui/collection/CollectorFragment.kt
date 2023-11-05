@@ -18,8 +18,6 @@ class CollectorFragment : Fragment() {
 
   private var _binding: FragmentCollectionBinding? = null
 
-  // This property is only valid between onCreateView and
-  // onDestroyView.
   private val binding get() = _binding!!
 
   override fun onCreateView(
@@ -52,10 +50,6 @@ class CollectorFragment : Fragment() {
 class CustomAdapter(private val dataSet: List<Collector>) :
   RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-  /**
-   * Provide a reference to the type of views that you are using
-   * (custom ViewHolder)
-   */
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val collectorTextView: TextView
     val performerTextView: TextView
@@ -87,5 +81,4 @@ class CustomAdapter(private val dataSet: List<Collector>) :
   }
 
   override fun getItemCount() = dataSet.size
-
 }
