@@ -11,7 +11,10 @@
     <string name="menu_artist">Artista</string>
     <string name="menu_collection">Colección</string>
     <string name="album_row">Album</string>
+    <string name="collector_row">Colección</string>
     <string name="performer_row">Album</string>
     <string name="album_description">Albumes</string>
     <string name="album_description_parte2">Busca tu album favorito</string>
+    <string name="collection_description">Colecciones</string>
+    <string name="collection_description_parte2">Busca tu colección favorito</string>
 </resources>
