@@ -1,4 +1,4 @@
-package com.example.app_movil_misw4203.ui.album
+package com.example.app_movil_misw4203.ui.collection
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,18 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.app_movil_misw4203.model.dto.Album
-import com.example.app_movil_misw4203.model.repository.AlbumRepository
-import com.example.app_movil_misw4203.model.service_adapter.AlbumServiceAdapter
+import com.example.app_movil_misw4203.model.dto.Collector
+import com.example.app_movil_misw4203.model.repository.CollectorRepository
 
-class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
+class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
 
-  private val albumRepository = AlbumRepository(application)
+  private val collectorRepository = CollectorRepository(application)
 
-  private val _albums = MutableLiveData<List<Album>>()
+  private val _collector = MutableLiveData<List<Collector>>()
 
-  val albums: LiveData<List<Album>>
-    get() = _albums
+  val collectors: LiveData<List<Collector>>
+    get() = _collector
 
   private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -30,13 +29,13 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     get() = _isNetworkErrorShown
 
   init {
-    refreshAlbumsFromNetwork()
+    refreshCollectorsFromNetwork()
   }
 
-  private fun refreshAlbumsFromNetwork() =
-    albumRepository.refreshAlbums(
-      functionToCall = { albums ->
-        _albums.postValue(albums)
+  private fun refreshCollectorsFromNetwork() =
+    collectorRepository.refreshCollectors(
+      functionToCall = { collectors ->
+        _collector.postValue(collectors)
         _eventNetworkError.value = false
         _isNetworkErrorShown.value = false
       },
@@ -51,9 +50,9 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
   class Factory(val app: Application) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-      if (modelClass.isAssignableFrom(AlbumViewModel::class.java)) {
+      if (modelClass.isAssignableFrom(CollectorViewModel::class.java)) {
         @Suppress("UNCHECKED_CAST")
-        return AlbumViewModel(app) as T
+        return CollectorViewModel(app) as T
       }
       throw IllegalArgumentException("Unable to construct view-model")
     }

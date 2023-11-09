@@ -7,7 +7,7 @@
 >
   <fragment
     android:id="@+id/nav_home"
-    android:name="com.example.app_movil_misw4203.ui.home.AlbumFragment"
+    android:name="com.example.app_movil_misw4203.ui.album.AlbumFragment"
     android:label="@string/menu_album"
     tools:layout="@layout/fragment_album"
   />
@@ -19,7 +19,7 @@
   />
   <fragment
     android:id="@+id/nav_slideshow"
-    android:name="com.example.app_movil_misw4203.ui.collection.CollectionFragment"
+    android:name="com.example.app_movil_misw4203.ui.collection.CollectorFragment"
     android:label="@string/menu_collection"
     tools:layout="@layout/fragment_collection"
   />
