@@ -1,5 +1,7 @@
 package com.example.app_movil_misw4203.ui.album
 
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.databinding.FragmentAlbumBinding
 import com.example.app_movil_misw4203.model.dto.Album
+import java.io.InputStream
+import java.net.URL
+
 
 class AlbumFragment : Fragment() {
 
@@ -92,7 +97,8 @@ class CustomAdapter(private val dataSet: List<Album>) :
         else -> it.first().name
       }
     }
-    //viewHolder.coverImage.
+    val bmImg = BitmapFactory.decodeStream(URL(dataSet[position].cover).openStream())
+    viewHolder.coverImage.setImageBitmap(bmImg)
   }
 
   // Return the size of your dataset (invoked by the layout manager)
