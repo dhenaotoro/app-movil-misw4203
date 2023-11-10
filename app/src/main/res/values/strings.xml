@@ -20,4 +20,5 @@
     <string name="collection_description_parte2">Busca tu colección favorito</string>
     <string name="artist_description">Artistas</string>
     <string name="artist_description_parte2">Busca tu artista favorito</string>
+    <string name="descr_overflow_button">Click aqui para ver mas detalles</string>
 </resources>
