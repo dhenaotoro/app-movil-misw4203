@@ -33,6 +33,8 @@ class AlbumServiceAdapter constructor(context: Context) {
         "albums",
         readAlbums(onComplete)
       ) { errorContent ->
+        println(errorContent.networkResponse)
+        println(errorContent.message)
         onError(errorContent)
       }
     )
