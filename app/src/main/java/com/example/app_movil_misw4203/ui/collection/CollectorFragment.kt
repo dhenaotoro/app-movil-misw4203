@@ -74,7 +74,6 @@ class CustomAdapter(private val dataSet: List<Collector>) :
     viewHolder.collectorTextView.text = dataSet[position].name
     viewHolder.itemView.setOnClickListener {
       val collector = dataSet[position]
-      println("INFORMACION DE COLLECCIONES:  ${collector}")
       val intent = Intent(viewHolder.itemView.context, CollectorDetailActivity::class.java)
       intent.putExtra("collector", collector)
       viewHolder.itemView.context.startActivity(intent)

@@ -13,7 +13,6 @@ class CollectorDetailActivity : AppCompatActivity() {
     setContentView(R.layout.collector_detail)
 
     val collector = intent.getParcelableExtra<Collector>("collector")
-    println("INFORMACION INTERNA:  ${collector}")
 
     val collectorNameTextView: TextView = findViewById(R.id.collector_name)
     val collectorPhoneTextView: TextView = findViewById(R.id.collector_phone)
