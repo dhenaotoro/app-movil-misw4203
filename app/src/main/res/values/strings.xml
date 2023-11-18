@@ -15,6 +15,9 @@
     <string name="artist_row_date">Fecha de Formación:</string>
     <string name="artist_row_awards">Premios:</string>
     <string name="collector_row">Colección</string>
+    <string name="collector_row_phone">Teléfono:</string>
+    <string name="collector_row_mail">Correo:</string>
+    <string name="collector_row_artist">Artistas Favoritos:</string>
     <string name="performer_row">Album</string>
     <string name="album_description">Albumes</string>
     <string name="album_description_parte2">Busca tu album favorito</string>

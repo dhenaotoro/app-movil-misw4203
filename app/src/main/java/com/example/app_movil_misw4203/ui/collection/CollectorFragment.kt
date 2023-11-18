@@ -1,5 +1,6 @@
 package com.example.app_movil_misw4203.ui.collection
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,7 +64,6 @@ class CustomAdapter(private val dataSet: List<Collector>) :
   }
 
   override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-    // Create a new view, which defines the UI of the list item
     val view = LayoutInflater.from(viewGroup.context)
       .inflate(R.layout.collector_row, viewGroup, false)
 
@@ -72,11 +72,12 @@ class CustomAdapter(private val dataSet: List<Collector>) :
 
   override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
     viewHolder.collectorTextView.text = dataSet[position].name
-    viewHolder.performerTextView.text = dataSet[position].performers.let {
-      when (it.isEmpty()) {
-        true -> "Colección"
-        else -> it.first().name
-      }
+    viewHolder.itemView.setOnClickListener {
+      val collector = dataSet[position]
+      println("INFORMACION DE COLLECCIONES:  ${collector}")
+      val intent = Intent(viewHolder.itemView.context, CollectorDetailActivity::class.java)
+      intent.putExtra("collector", collector)
+      viewHolder.itemView.context.startActivity(intent)
     }
   }
 
