@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.databinding.FragmentArtistBinding
 import com.example.app_movil_misw4203.model.dto.Artist
+import android.content.Intent
+import com.squareup.picasso.Picasso
 
 class ArtistFragment : Fragment() {
 
@@ -38,7 +40,6 @@ class ArtistFragment : Fragment() {
       artistRecyclerView.layoutManager = LinearLayoutManager(this.context)
       artistRecyclerView.adapter = customAdapter
     }
-
     return root
   }
 
@@ -69,7 +70,16 @@ class CustomAdapter(private val dataSet: List<Artist>) :
 
   override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
     viewHolder.artistTextView.text = dataSet[position].name
+    Picasso.get().load(dataSet[position].image).into(viewHolder.coverImage)
+    viewHolder.itemView.setOnClickListener {
+      val artist = dataSet[position]
+      val intent = Intent(viewHolder.itemView.context, ArtistDetailActivity::class.java)
+      intent.putExtra("artist", artist)
+      viewHolder.itemView.context.startActivity(intent)
+    }
   }
   override fun getItemCount() = dataSet.size
 
 }
+
+// ACTO 3
