@@ -6,17 +6,17 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".ui.artist.ArtistFragment"
-  >
+>
   <ScrollView
     android:layout_width="412dp"
     android:layout_height="737dp"
     tools:ignore="MissingConstraints"
-    >
+  >
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      >
+    >
       <ImageView
         android:id="@+id/artistImage"
         android:layout_width="340dp"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="35dp"
-        />
+      />
       <TextView
         android:id="@+id/description_artist"
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/artistImage"
-        />
+      />
       <TextView
         android:id="@+id/description_artist_part2"
         android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/artistImage"
-        />
+      />
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/artistRecyclerView"
         android:layout_width="398dp"
@@ -63,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintVertical_bias="0.142"
-        />
+      />
     </LinearLayout>
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
