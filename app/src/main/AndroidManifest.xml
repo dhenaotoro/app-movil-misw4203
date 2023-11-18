@@ -27,5 +27,10 @@
           android:label="ArtistDetailActivity"
           android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
+        <activity
+          android:name=".ui.collection.CollectorDetailActivity"
+          android:label="CollectorDetailActivity"
+          android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
     </application>
 </manifest>

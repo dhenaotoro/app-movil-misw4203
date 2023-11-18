@@ -4,6 +4,7 @@ import android.content.Context
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.example.app_movil_misw4203.model.broker.VolleyBroker
+import com.example.app_movil_misw4203.model.dto.Artist
 import com.example.app_movil_misw4203.model.dto.Collector
 import com.example.app_movil_misw4203.model.dto.Performer
 import org.json.JSONArray
@@ -20,7 +21,6 @@ class CollectorServiceAdapter constructor(context: Context) {
             }
     }
     private val broker: VolleyBroker by lazy {
-        // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         VolleyBroker(context)
     }
 
@@ -43,18 +43,41 @@ class CollectorServiceAdapter constructor(context: Context) {
         val collectors = mutableListOf<Collector>()
         for (i in 0 until responseToJSONArray.length()) {
             val collector = responseToJSONArray.getJSONObject(i)
-            println(collector.toString())
             collectors.add(
                 index = i,
                 element = Collector(
                     id = collector.getInt("id"),
                     name = collector.getString("name"),
                     telephone = collector.getString("telephone"),
-                    email = collector.getString("email")
+                    email = collector.getString("email"),
+                    favoritePerformers = extractFavoritePerformers(collector)
                 )
             )
         }
         onComplete(collectors)
     }
+
+    private fun extractFavoritePerformers(collector: JSONObject): Set<Artist> {
+        val favoriteArtistsArray = collector.optJSONArray("favoritePerformers")
+        val artists = mutableSetOf<Artist>()
+
+        favoriteArtistsArray?.let {
+            for (i in 0 until it.length()) {
+                val artist = it.getJSONObject(i)
+                artists.add(
+                    Artist(
+                        id = artist.getInt("id"),
+                        name = artist.getString("name"),
+                        image = artist.getString("image"),
+                        description = artist.getString("description"),
+                        birthDate = artist.optString("birthDate")
+                    )
+                )
+            }
+        }
+
+        return artists
+    }
+
 
 }
