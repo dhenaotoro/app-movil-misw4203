@@ -8,31 +8,41 @@
   tools:context=".ui.artist.ArtistFragment"
 >
   <ScrollView
-    android:layout_width="412dp"
-    android:layout_height="737dp"
+    android:id="@+id/artists_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
   >
     <LinearLayout
+      android:id="@+id/artist_main_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:id="@+id/layout_cover"
+        android:layout_width="match_parent"
+        android:layout_height="402dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical">
+
       <ImageView
         android:id="@+id/artistImage"
         android:layout_width="340dp"
         android:layout_height="310dp"
-        android:layout_marginStart="32dp"
         android:src="@drawable/artists"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="35dp"
-      />
+        android:layout_gravity="center" />
+
       <TextView
         android:id="@+id/description_artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="18dp"
         android:text="@string/artist_description"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -44,25 +54,25 @@
         android:id="@+id/description_artist_part2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
         android:text="@string/artist_description_parte2"
         android:textAlignment="center"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
-        app:layout_constraintTop_toBottomOf="@+id/artistImage"
+        app:layout_constraintTop_toBottomOf="@+id/description_artist"
       />
+    </LinearLayout>
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/artistRecyclerView"
-        android:layout_width="398dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginTop="42dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/artistImage"
-        app:layout_constraintVertical_bias="0.142"
+        app:layout_constraintStart_toStartOf="@+id/collectionImage"
+        app:layout_constraintTop_toBottomOf="@+id/layout_cover"
+        android:layout_gravity="center"
       />
     </LinearLayout>
   </ScrollView>
