@@ -57,26 +57,27 @@ class CollectorServiceAdapter constructor(context: Context) {
         onComplete(collectors)
     }
 
-    private fun extractFavoritePerformers(collector: JSONObject): Set<Artist> {
+    private fun extractFavoritePerformers(collector: JSONObject): Set<Performer> {
         val favoriteArtistsArray = collector.optJSONArray("favoritePerformers")
-        val artists = mutableSetOf<Artist>()
+        val performers = mutableSetOf<Performer>()
 
         favoriteArtistsArray?.let {
             for (i in 0 until it.length()) {
-                val artist = it.getJSONObject(i)
-                artists.add(
-                    Artist(
-                        id = artist.getInt("id"),
-                        name = artist.getString("name"),
-                        image = artist.getString("image"),
-                        description = artist.getString("description"),
-                        birthDate = artist.optString("birthDate")
+                val performer = it.getJSONObject(i)
+                performers.add(
+                    Performer(
+                        id = performer.getInt("id"),
+                        name = performer.getString("name"),
+                        image = performer.getString("image"),
+                        description = performer.getString("description"),
+                        birthDate = performer.optString("birthDate"),
+                        creationDate = performer.optString("creationDate")
                     )
                 )
             }
         }
 
-        return artists
+        return performers
     }
 
 
