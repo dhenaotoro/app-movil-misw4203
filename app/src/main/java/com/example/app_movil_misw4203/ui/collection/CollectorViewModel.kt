@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.app_movil_misw4203.model.dto.Collector
 import com.example.app_movil_misw4203.model.repository.CollectorRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
 
@@ -33,16 +37,18 @@ class CollectorViewModel(application: Application) :  AndroidViewModel(applicati
   }
 
   private fun refreshCollectorsFromNetwork() =
-    collectorRepository.refreshCollectors(
-      functionToCall = { collectors ->
-        _collector.postValue(collectors)
-        _eventNetworkError.value = false
-        _isNetworkErrorShown.value = false
-      },
-      transmitError = {
-        _eventNetworkError.value = true
+    try {
+      viewModelScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+          val collectors = collectorRepository.refreshCollectors()
+          _collector.postValue(collectors)
+        }
+        _eventNetworkError.postValue(false)
+        _isNetworkErrorShown.postValue(false)
       }
-    )
+    } catch (e: Exception) {
+      _eventNetworkError.value = true
+    }
 
   fun onNetworkErrorShown() {
     _isNetworkErrorShown.value = true

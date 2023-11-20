@@ -9,6 +9,9 @@ import com.example.app_movil_misw4203.model.dto.Album
 import com.example.app_movil_misw4203.model.dto.Performer
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class ArtistServiceAdapter constructor(context: Context) {
   companion object{
@@ -24,39 +27,36 @@ class ArtistServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  fun getArtists(
-    onComplete: (artists: List<Artist>)->Unit,
-    onError: (error: VolleyError)->Unit)
-  {
+  suspend fun getArtists() : MutableList<Artist> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "musicians",
-        readArtists(onComplete)
+        { response ->
+          val responseToJSONArray = JSONArray(response)
+          val artists = mutableListOf<Artist>()
+          for (i in 0 until responseToJSONArray.length()) {
+            val artist = responseToJSONArray.getJSONObject(i)
+            println(artist.toString())
+            artists.add(
+              index = i,
+              element = Artist(
+                id = artist.getInt("id"),
+                name = artist.getString("name"),
+                image = artist.getString("image"),
+                description = artist.getString("description"),
+                birthDate = artist.getString("birthDate"),
+                /*albums = extractAlbum(artist),*/
+              )
+            )
+          }
+          cont.resume(artists)
+        }
       ) { errorContent ->
-        onError(errorContent)
+        println(errorContent.networkResponse)
+        println(errorContent.message)
+        cont.resumeWithException(errorContent)
       }
     )
-  }
-
-  private fun readArtists(onComplete: (artists: List<Artist>) -> Unit) = Response.Listener<String> { response ->
-    val responseToJSONArray = JSONArray(response)
-    val artists = mutableListOf<Artist>()
-    for (i in 0 until responseToJSONArray.length()) {
-      val artist = responseToJSONArray.getJSONObject(i)
-      println(artist.toString())
-      artists.add(
-        index = i,
-        element = Artist(
-          id = artist.getInt("id"),
-          name = artist.getString("name"),
-          image = artist.getString("image"),
-          description = artist.getString("description"),
-          birthDate = artist.getString("birthDate"),
-          /*albums = extractAlbum(artist),*/
-        )
-      )
-    }
-    onComplete(artists)
   }
 
   /*private fun extractPerformers(artist: JSONObject): Set<Performer> =

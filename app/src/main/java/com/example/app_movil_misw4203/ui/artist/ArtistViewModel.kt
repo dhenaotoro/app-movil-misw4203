@@ -6,9 +6,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.app_movil_misw4203.model.dto.Artist
 import com.example.app_movil_misw4203.model.repository.ArtistRepository
 import com.example.app_movil_misw4203.model.service_adapter.ArtistServiceAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
@@ -38,16 +42,18 @@ class ArtistViewModel(application: Application) :  AndroidViewModel(application)
   }
 
   private fun refreshArtistsFromNetwork() =
-    artistRepository.refreshArtists(
-      functionToCall = { artists ->
-        _artists.postValue(artists)
-        _eventNetworkError.value = false
-        _isNetworkErrorShown.value = false
-      },
-      transmitError = {
-        _eventNetworkError.value = true
+    try {
+      viewModelScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+          val artists = artistRepository.refreshArtists()
+          _artists.postValue(artists)
+        }
+        _eventNetworkError.postValue(false)
+        _isNetworkErrorShown.postValue( false)
       }
-    )
+    } catch (e:Exception) {
+      _eventNetworkError.value = true
+    }
 
   fun onNetworkErrorShown() {
     _isNetworkErrorShown.value = true

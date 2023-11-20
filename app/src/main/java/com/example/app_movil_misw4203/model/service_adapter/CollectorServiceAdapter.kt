@@ -9,6 +9,9 @@ import com.example.app_movil_misw4203.model.dto.Collector
 import com.example.app_movil_misw4203.model.dto.Performer
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class CollectorServiceAdapter constructor(context: Context) {
     companion object{
@@ -24,37 +27,34 @@ class CollectorServiceAdapter constructor(context: Context) {
         VolleyBroker(context)
     }
 
-    fun getCollectors(
-        onComplete: (collectors: List<Collector>)->Unit,
-        onError: (error: VolleyError)->Unit)
-    {
+    suspend fun getCollectors() : MutableList<Collector> = suspendCoroutine { cont ->
         broker.instance.add(
             VolleyBroker.getRequest(
                 "collectors",
-                readCollectors(onComplete)
+                { response ->
+                    val responseToJSONArray = JSONArray(response)
+                    val collectors = mutableListOf<Collector>()
+                    for (i in 0 until responseToJSONArray.length()) {
+                        val collector = responseToJSONArray.getJSONObject(i)
+                        collectors.add(
+                            index = i,
+                            element = Collector(
+                                id = collector.getInt("id"),
+                                name = collector.getString("name"),
+                                telephone = collector.getString("telephone"),
+                                email = collector.getString("email"),
+                                favoritePerformers = extractFavoritePerformers(collector)
+                            )
+                        )
+                    }
+                    cont.resume(collectors)
+                }
             ) { errorContent ->
-                onError(errorContent)
+                println(errorContent.networkResponse)
+                println(errorContent.message)
+                cont.resumeWithException(errorContent)
             }
         )
-    }
-
-    private fun readCollectors(onComplete: (collectors: List<Collector>) -> Unit) = Response.Listener<String> { response ->
-        val responseToJSONArray = JSONArray(response)
-        val collectors = mutableListOf<Collector>()
-        for (i in 0 until responseToJSONArray.length()) {
-            val collector = responseToJSONArray.getJSONObject(i)
-            collectors.add(
-                index = i,
-                element = Collector(
-                    id = collector.getInt("id"),
-                    name = collector.getString("name"),
-                    telephone = collector.getString("telephone"),
-                    email = collector.getString("email"),
-                    favoritePerformers = extractFavoritePerformers(collector)
-                )
-            )
-        }
-        onComplete(collectors)
     }
 
     private fun extractFavoritePerformers(collector: JSONObject): Set<Artist> {

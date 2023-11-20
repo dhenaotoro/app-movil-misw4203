@@ -36,7 +36,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     refreshAlbumsFromNetwork()
   }
 
-  private fun refreshAlbumsFromNetwork() {
+  private fun refreshAlbumsFromNetwork() =
     try {
       viewModelScope.launch(Dispatchers.Default) {
         withContext(Dispatchers.IO) {
@@ -49,7 +49,6 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     } catch (e: Exception) {
       _eventNetworkError.value = true
     }
-  }
 
   fun onNetworkErrorShown() {
     _isNetworkErrorShown.value = true
