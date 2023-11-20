@@ -4,10 +4,14 @@ import android.content.Context
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.example.app_movil_misw4203.model.broker.VolleyBroker
+import com.example.app_movil_misw4203.model.dto.Artist
 import com.example.app_movil_misw4203.model.dto.Collector
 import com.example.app_movil_misw4203.model.dto.Performer
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class CollectorServiceAdapter constructor(context: Context) {
     companion object{
@@ -20,41 +24,61 @@ class CollectorServiceAdapter constructor(context: Context) {
             }
     }
     private val broker: VolleyBroker by lazy {
-        // applicationContext keeps you from leaking the Activity or BroadcastReceiver if someone passes one in.
         VolleyBroker(context)
     }
 
-    fun getCollectors(
-        onComplete: (collectors: List<Collector>)->Unit,
-        onError: (error: VolleyError)->Unit)
-    {
+    suspend fun getCollectors() : MutableList<Collector> = suspendCoroutine { cont ->
         broker.instance.add(
             VolleyBroker.getRequest(
                 "collectors",
-                readCollectors(onComplete)
+                { response ->
+                    val responseToJSONArray = JSONArray(response)
+                    val collectors = mutableListOf<Collector>()
+                    for (i in 0 until responseToJSONArray.length()) {
+                        val collector = responseToJSONArray.getJSONObject(i)
+                        collectors.add(
+                            index = i,
+                            element = Collector(
+                                id = collector.getInt("id"),
+                                name = collector.getString("name"),
+                                telephone = collector.getString("telephone"),
+                                email = collector.getString("email"),
+                                favoritePerformers = extractFavoritePerformers(collector)
+                            )
+                        )
+                    }
+                    cont.resume(collectors)
+                }
             ) { errorContent ->
-                onError(errorContent)
+                println(errorContent.networkResponse)
+                println(errorContent.message)
+                cont.resumeWithException(errorContent)
             }
         )
     }
 
-    private fun readCollectors(onComplete: (collectors: List<Collector>) -> Unit) = Response.Listener<String> { response ->
-        val responseToJSONArray = JSONArray(response)
-        val collectors = mutableListOf<Collector>()
-        for (i in 0 until responseToJSONArray.length()) {
-            val collector = responseToJSONArray.getJSONObject(i)
-            println(collector.toString())
-            collectors.add(
-                index = i,
-                element = Collector(
-                    id = collector.getInt("id"),
-                    name = collector.getString("name"),
-                    telephone = collector.getString("telephone"),
-                    email = collector.getString("email")
+    private fun extractFavoritePerformers(collector: JSONObject): Set<Performer> {
+        val favoriteArtistsArray = collector.optJSONArray("favoritePerformers")
+        val performers = mutableSetOf<Performer>()
+
+        favoriteArtistsArray?.let {
+            for (i in 0 until it.length()) {
+                val performer = it.getJSONObject(i)
+                performers.add(
+                    Performer(
+                        id = performer.getInt("id"),
+                        name = performer.getString("name"),
+                        image = performer.getString("image"),
+                        description = performer.getString("description"),
+                        birthDate = performer.optString("birthDate"),
+                        creationDate = performer.optString("creationDate")
+                    )
                 )
-            )
+            }
         }
-        onComplete(collectors)
+
+        return performers
     }
+
 
 }

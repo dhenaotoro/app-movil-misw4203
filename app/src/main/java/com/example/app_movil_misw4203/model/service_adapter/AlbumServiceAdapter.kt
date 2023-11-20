@@ -8,6 +8,9 @@ import com.example.app_movil_misw4203.model.broker.VolleyBroker
 import com.example.app_movil_misw4203.model.dto.Performer
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class AlbumServiceAdapter constructor(context: Context) {
   companion object{
@@ -24,41 +27,38 @@ class AlbumServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  fun getAlbums(
-    onComplete: (albums: List<Album>)->Unit,
-    onError: (error: VolleyError)->Unit)
-  {
+  suspend fun getAlbums() : MutableList<Album> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "albums",
-        readAlbums(onComplete)
+        { response ->
+          val responseToJSONArray = JSONArray(response)
+          val albums = mutableListOf<Album>()
+          for (i in 0 until responseToJSONArray.length()) {
+            val album = responseToJSONArray.getJSONObject(i)
+            println(album.toString())
+            albums.add(
+              index = i,
+              element = Album(
+                id = album.getInt("id"),
+                name = album.getString("name"),
+                cover = album.getString("cover"),
+                releaseDate = album.getString("releaseDate"),
+                description = album.getString("description"),
+                genre = album.getString("genre"),
+                recordLabel = album.getString("recordLabel"),
+                performers = extractPerformers(album)
+              )
+            )
+          }
+          cont.resume(albums)
+        }
       ) { errorContent ->
-        onError(errorContent)
+        println(errorContent.networkResponse)
+        println(errorContent.message)
+        cont.resumeWithException(errorContent)
       }
     )
-  }
-
-  private fun readAlbums(onComplete: (albums: List<Album>) -> Unit) = Response.Listener<String> { response ->
-    val responseToJSONArray = JSONArray(response)
-    val albums = mutableListOf<Album>()
-    for (i in 0 until responseToJSONArray.length()) {
-      val album = responseToJSONArray.getJSONObject(i)
-      println(album.toString())
-      albums.add(
-        index = i,
-        element = Album(
-          id = album.getInt("id"),
-          name = album.getString("name"),
-          cover = album.getString("cover"),
-          releaseDate = album.getString("releaseDate"),
-          description = album.getString("description"),
-          genre = album.getString("genre"),
-          recordLabel = album.getString("recordLabel"),
-          performers = extractPerformers(album)
-        )
-      )
-    }
-    onComplete(albums)
   }
 
   private fun extractPerformers(album: JSONObject): Set<Performer> =

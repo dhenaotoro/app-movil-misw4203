@@ -22,11 +22,11 @@
         android:layout_height="118dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/collectors"
+        app:srcCompat="@drawable/artists"
         />
-
+>
     <LinearLayout
-        android:id="@+id/collector_info"
+        android:id="@+id/artist_info"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="15dp"
@@ -39,10 +39,10 @@
         >
 
     <TextView
-        android:id="@+id/collector"
+        android:id="@+id/artist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/collector_row"
+        android:text="Artista"
         android:textSize="16sp"
         android:textStyle="bold"
         />
@@ -51,7 +51,7 @@
         android:id="@+id/performer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/collector_row"
+        android:text="Artista"
         android:textSize="14sp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent" />

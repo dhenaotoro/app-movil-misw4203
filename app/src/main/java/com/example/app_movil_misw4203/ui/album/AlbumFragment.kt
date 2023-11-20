@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.databinding.FragmentAlbumBinding
 import com.example.app_movil_misw4203.model.dto.Album
+import com.squareup.picasso.Picasso
+
 
 class AlbumFragment : Fragment() {
 
@@ -84,7 +86,7 @@ class CustomAdapter(private val dataSet: List<Album>) :
 
     // Get element from your dataset at this position and replace the
     // contents of the view with that element
-    println("ENTROOOOO ${dataSet[position]}")
+    println("Data to show in ReciclerView ${dataSet[position]}")
     viewHolder.albumTextView.text = dataSet[position].name
     viewHolder.performerTextView.text = dataSet[position].performers.let {
       when (it.isEmpty()) {
@@ -92,7 +94,9 @@ class CustomAdapter(private val dataSet: List<Album>) :
         else -> it.first().name
       }
     }
-    //viewHolder.coverImage.
+    //A way to capture image from a server on internet and load into ImageViewComponent
+    val cover = dataSet[position].cover
+    Picasso.get().load(cover).into(viewHolder.coverImage)
   }
 
   // Return the size of your dataset (invoked by the layout manager)

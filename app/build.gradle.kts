@@ -44,6 +44,7 @@ dependencies {
   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
   implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
   implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
+  implementation("com.squareup.picasso:picasso:2.8")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -51,4 +52,5 @@ dependencies {
   androidTestImplementation("androidx.test:rules:1.4.0")
   androidTestImplementation ("androidx.test.espresso:espresso-contrib:3.4.0")
   implementation("com.android.volley:volley:1.2.1")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 }

@@ -8,62 +8,72 @@
   tools:context=".ui.album.AlbumFragment"
 >
   <ScrollView
-    android:layout_width="412dp"
-    android:layout_height="737dp"
+    android:id="@+id/albums_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
   >
     <LinearLayout
+      android:id="@+id/album_main_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
     >
-      <ImageView
-        android:id="@+id/albumImage"
-        android:layout_width="340dp"
-        android:layout_height="310dp"
-        android:layout_marginStart="32dp"
-        android:src="@drawable/albums"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="35dp"
-      />
-      <TextView
-        android:id="@+id/description_album"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/album_description"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/albumImage"
-        app:layout_constraintTop_toBottomOf="@+id/albumImage"
-      />
-      <TextView
-        android:id="@+id/description_album_part2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/album_description_parte2"
-        android:textAlignment="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/albumImage"
-        app:layout_constraintTop_toBottomOf="@+id/albumImage"
-      />
+
+      <LinearLayout
+          android:id="@+id/layout_cover"
+          android:layout_width="match_parent"
+          android:layout_height="402dp"
+          android:background="@drawable/layout_bg"
+          android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/albumImage"
+            android:layout_width="340dp"
+            android:layout_height="310dp"
+            android:src="@drawable/albums"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="35dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/description_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/album_description"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/albumImage"
+            app:layout_constraintTop_toBottomOf="@+id/albumImage" />
+
+        <TextView
+            android:id="@+id/description_album_part2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/album_description_parte2"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/albumImage"
+            app:layout_constraintTop_toBottomOf="@+id/description_album" />
+
+      </LinearLayout>
+
       <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/albumRecyclerView"
-        android:layout_width="398dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="92dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/albumImage"
-        app:layout_constraintVertical_bias="0.142"
-      />
+          android:id="@+id/albumRecyclerView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="42dp"
+          android:background="#FFFFFF"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="@+id/albumImage"
+          app:layout_constraintTop_toBottomOf="@+id/layout_cover"
+          android:layout_gravity="center"/>
     </LinearLayout>
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
