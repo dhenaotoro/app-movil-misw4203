@@ -8,7 +8,7 @@ data class Collector (
   val name:String,
   val telephone:String,
   val email:String,
-  val favoritePerformers: Set<Artist> = emptySet(),
+  val favoritePerformers: Set<Performer> = emptySet(),
 ) : Parcelable {
 
   constructor(parcel: Parcel) : this(

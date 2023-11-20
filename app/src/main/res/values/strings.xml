@@ -1,17 +1,11 @@
 <resources>
     <string name="app_name">app-movil-misw4203</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
     <string name="menu_album">Album</string>
     <string name="menu_artist">Artista</string>
     <string name="menu_collection">Colección</string>
     <string name="album_row">Album</string>
-    <string name="artist_row">Artista</string>
     <string name="artist_row_date">Fecha de Formación:</string>
     <string name="artist_row_awards">Premios:</string>
     <string name="collector_row">Colección</string>

@@ -17,20 +17,20 @@ class CollectorDetailActivity : AppCompatActivity() {
     val collectorNameTextView: TextView = findViewById(R.id.collector_name)
     val collectorPhoneTextView: TextView = findViewById(R.id.collector_phone)
     val collectorMailTextView: TextView = findViewById(R.id.collector_mail)
-    val collectorArtistTextView: TextView = findViewById(R.id.collector_artist)
+    val collectorPerformerTextView: TextView = findViewById(R.id.collector_performer)
 
     collectorNameTextView.text = collector?.name
     collectorPhoneTextView.text = collector?.telephone
     collectorMailTextView.text = collector?.email
-    collector?.favoritePerformers?.let { artists ->
-      if (artists.isNotEmpty()) {
-        val artistList = artists.joinToString(separator = "\n") { it.name }
-        collectorArtistTextView.text = artistList
+    collector?.favoritePerformers?.let { performers ->
+      if (performers.isNotEmpty()) {
+        val performerList = performers.joinToString(separator = "\n") { it.name }
+        collectorPerformerTextView.text = performerList
       } else {
-        collectorArtistTextView.text = "No hay artistas asociados a este coleccionista."
+        collectorPerformerTextView.text = "No hay artistas asociados a este coleccionista."
       }
     } ?: run {
-      collectorArtistTextView.text = "Información de coleccionista no disponible."
+      collectorPerformerTextView.text = "Información de coleccionista no disponible."
     }
 
     supportActionBar?.title = "Detalle de la colección"
