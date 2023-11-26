@@ -1,5 +1,6 @@
 package com.example.app_movil_misw4203.ui.album
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,10 @@ import com.example.app_movil_misw4203.databinding.FragmentAlbumBinding
 import com.example.app_movil_misw4203.model.dto.Album
 import com.squareup.picasso.Picasso
 
-
 class AlbumFragment : Fragment() {
 
   private var _binding: FragmentAlbumBinding? = null
 
-  // This property is only valid between onCreateView and
-  // onDestroyView.
   private val binding get() = _binding!!
 
   override fun onCreateView(
@@ -31,18 +29,14 @@ class AlbumFragment : Fragment() {
   ): View {
     val albumViewModel =
       ViewModelProvider(this)[AlbumViewModel::class.java]
-
     _binding = FragmentAlbumBinding.inflate(inflater, container, false)
     val root: View = binding.root
-
     val albumRecyclerView: RecyclerView = binding.albumRecyclerView
-
     albumViewModel.albums.observe(viewLifecycleOwner) { albums ->
       val customAdapter = CustomAdapter(albums)
       albumRecyclerView.layoutManager = LinearLayoutManager(this.context)
       albumRecyclerView.adapter = customAdapter
     }
-
     return root
   }
 
@@ -55,38 +49,25 @@ class AlbumFragment : Fragment() {
 class CustomAdapter(private val dataSet: List<Album>) :
   RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-  /**
-   * Provide a reference to the type of views that you are using
-   * (custom ViewHolder)
-   */
   class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val albumTextView: TextView
     val performerTextView: TextView
     val coverImage: ImageView
 
     init {
-      // Define click listener for the ViewHolder's View
       albumTextView = view.findViewById(R.id.album)
       performerTextView = view.findViewById(R.id.performer)
       coverImage = view.findViewById(R.id.cover)
     }
   }
 
-  // Create new views (invoked by the layout manager)
   override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-    // Create a new view, which defines the UI of the list item
     val view = LayoutInflater.from(viewGroup.context)
       .inflate(R.layout.album_row, viewGroup, false)
-
     return ViewHolder(view)
   }
 
-  // Replace the contents of a view (invoked by the layout manager)
   override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
-    // Get element from your dataset at this position and replace the
-    // contents of the view with that element
-    println("Data to show in ReciclerView ${dataSet[position]}")
     viewHolder.albumTextView.text = dataSet[position].name
     viewHolder.performerTextView.text = dataSet[position].performers.let {
       when (it.isEmpty()) {
@@ -94,12 +75,19 @@ class CustomAdapter(private val dataSet: List<Album>) :
         else -> it.first().name
       }
     }
-    //A way to capture image from a server on internet and load into ImageViewComponent
+
+    viewHolder.itemView.setOnClickListener {
+      val album = dataSet[position]
+      println("Album!: ${dataSet[position]}")
+      println("Tracks Main!: ${dataSet[position].tracks}")
+      val intent = Intent(viewHolder.itemView.context, AlbumDetailActivity::class.java)
+      intent.putExtra("album", album)
+      viewHolder.itemView.context.startActivity(intent)
+    }
     val cover = dataSet[position].cover
     Picasso.get().load(cover).into(viewHolder.coverImage)
   }
 
-  // Return the size of your dataset (invoked by the layout manager)
   override fun getItemCount() = dataSet.size
 
 }
