@@ -23,7 +23,6 @@ class TrackAdapter(private val trackList: List<Track>) : RecyclerView.Adapter<Tr
 
   override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
     val currentTrack = trackList[position]
-    println("Track Adapter - Track Name: ${currentTrack.name}, Duration: ${currentTrack.duration}")
     holder.trackName.text = currentTrack?.name
     holder.trackDuration.text = currentTrack?.duration
   }

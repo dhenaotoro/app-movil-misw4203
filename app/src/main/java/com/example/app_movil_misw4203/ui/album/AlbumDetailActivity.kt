@@ -19,13 +19,6 @@ class AlbumDetailActivity : AppCompatActivity() {
 
     val album = intent.getParcelableExtra<Album>("album")
 
-    println("Name: ${album?.name}")
-    println("Description: ${album?.description}")
-    println("Tracks Off 1: ${album?.tracks}")
-    println("Tracks Off 2: ${album?.tracks?.toList()}")
-    println("Tracks Off 3: ${ArrayList(album?.tracks)}")
-    println("Tracks Off 4: ${album?.tracks}")
-
     val albumNameTextView: TextView = findViewById(R.id.album_name)
     val albumPhoneTextView: TextView = findViewById(R.id.album_description)
     val albumImageView: ImageView = findViewById(R.id.album_image)
