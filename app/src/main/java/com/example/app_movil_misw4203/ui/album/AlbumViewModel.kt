@@ -18,9 +18,13 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
   private val albumRepository = AlbumRepository(application)
 
   private val _albums = MutableLiveData<List<Album>>()
+  private val _album = MutableLiveData<Album>()
 
   val albums: LiveData<List<Album>>
     get() = _albums
+
+  val album: LiveData<Album>
+    get() = _album
 
   private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
@@ -51,8 +55,18 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     }
 
   fun createAlbum(albumToCreate: Album) {
-    println("ENTRO 5555")
-    println(albumToCreate)
+    try {
+      viewModelScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+          val album = albumRepository.createAlbum(albumToCreate)
+          //_album.postValue(album)
+        }
+        _eventNetworkError.postValue(false)
+        _isNetworkErrorShown.postValue(false)
+      }
+    } catch (e: Exception) {
+      _eventNetworkError.value = true
+    }
   }
 
   fun onNetworkErrorShown() {

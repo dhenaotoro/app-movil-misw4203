@@ -1,11 +1,10 @@
 package com.example.app_movil_misw4203.model.service_adapter
 
 import android.content.Context
-import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.example.app_movil_misw4203.model.dto.Album
 import com.example.app_movil_misw4203.model.broker.VolleyBroker
 import com.example.app_movil_misw4203.model.dto.Performer
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -80,4 +79,30 @@ class AlbumServiceAdapter constructor(context: Context) {
         }
         performers
       }
+
+  suspend fun postAlbum(album: Album) : Album = suspendCoroutine {cont ->
+    println("Creando album ${Gson().toJson(album)}")
+    broker.instance.add(
+      VolleyBroker.postRequest(
+        "albums",
+        JSONObject(Gson().toJson(album)),
+        { album ->
+          cont.resume(Album(
+            id = album.getInt("id"),
+            name = album.getString("name"),
+            cover = album.getString("cover"),
+            releaseDate = album.getString("releaseDate"),
+            description = album.getString("description"),
+            genre = album.getString("genre"),
+            recordLabel = album.getString("recordLabel"),
+            performers = extractPerformers(album)
+          ))
+        }
+      ) { errorContent ->
+        println("Ocurrio la siguiente respuesta de red: ${errorContent.networkResponse}")
+        println("Mensaje de error: ${errorContent.message}")
+        cont.resumeWithException(errorContent)
+      }
+    )
+  }
 }
