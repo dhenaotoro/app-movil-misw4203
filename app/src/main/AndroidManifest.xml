@@ -32,5 +32,10 @@
           android:label="CollectorDetailActivity"
           android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
+        <activity
+            android:name=".ui.album.NewAlbumActivity"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
     </application>
 </manifest>
