@@ -59,7 +59,7 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
       viewModelScope.launch(Dispatchers.Default) {
         withContext(Dispatchers.IO) {
           val album = albumRepository.createAlbum(albumToCreate)
-          //_album.postValue(album)
+          _album.postValue(album)
         }
         _eventNetworkError.postValue(false)
         _isNetworkErrorShown.postValue(false)

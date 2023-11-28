@@ -11,6 +11,15 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
+data class AlbumBack (
+  val name: String,
+  val cover: String,
+  val releaseDate: String,
+  val description: String,
+  val genre: String,
+  val recordLabel: String,
+)
+
 class AlbumServiceAdapter constructor(context: Context) {
   companion object{
     private var instance: AlbumServiceAdapter? = null
@@ -81,11 +90,25 @@ class AlbumServiceAdapter constructor(context: Context) {
       }
 
   suspend fun postAlbum(album: Album) : Album = suspendCoroutine {cont ->
-    println("Creando album ${Gson().toJson(album)}")
+    println("Creando album ${Gson().toJson(AlbumBack(
+      name = album.name,
+      cover = album.cover,
+      releaseDate = album.releaseDate,
+      description =  album.description,
+      genre = album.genre,
+      recordLabel = album.recordLabel,
+    ))}")
     broker.instance.add(
       VolleyBroker.postRequest(
         "albums",
-        JSONObject(Gson().toJson(album)),
+        JSONObject(Gson().toJson(AlbumBack(
+          name = album.name,
+          cover = album.cover,
+          releaseDate = album.releaseDate,
+          description =  album.description,
+          genre = album.genre,
+          recordLabel = album.recordLabel,
+        ))),
         { album ->
           cont.resume(Album(
             id = album.getInt("id"),
@@ -94,8 +117,7 @@ class AlbumServiceAdapter constructor(context: Context) {
             releaseDate = album.getString("releaseDate"),
             description = album.getString("description"),
             genre = album.getString("genre"),
-            recordLabel = album.getString("recordLabel"),
-            performers = extractPerformers(album)
+            recordLabel = album.getString("recordLabel")
           ))
         }
       ) { errorContent ->
