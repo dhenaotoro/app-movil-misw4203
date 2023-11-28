@@ -1,7 +1,7 @@
 package com.example.app_movil_misw4203.model.dto
 
 data class Album (
-  val id: Int,
+  val id: Int = 0,
   val name: String,
   val cover: String,
   val releaseDate: String,

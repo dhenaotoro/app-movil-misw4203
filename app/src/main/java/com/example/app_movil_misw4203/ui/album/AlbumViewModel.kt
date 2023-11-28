@@ -50,6 +50,11 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
       _eventNetworkError.value = true
     }
 
+  fun createAlbum(albumToCreate: Album) {
+    println("ENTRO 5555")
+    println(albumToCreate)
+  }
+
   fun onNetworkErrorShown() {
     _isNetworkErrorShown.value = true
   }
