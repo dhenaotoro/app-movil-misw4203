@@ -1,11 +1,10 @@
 package com.example.app_movil_misw4203.model.service_adapter
 
 import android.content.Context
-import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.example.app_movil_misw4203.model.dto.Album
 import com.example.app_movil_misw4203.model.broker.VolleyBroker
 import com.example.app_movil_misw4203.model.dto.Performer
+import com.example.app_movil_misw4203.model.dto.Track
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
@@ -47,7 +46,8 @@ class AlbumServiceAdapter constructor(context: Context) {
                 description = album.getString("description"),
                 genre = album.getString("genre"),
                 recordLabel = album.getString("recordLabel"),
-                performers = extractPerformers(album)
+                performers = extractPerformers(album),
+                tracks = extractTracks(album)
               )
             )
           }
@@ -61,14 +61,14 @@ class AlbumServiceAdapter constructor(context: Context) {
     )
   }
 
-  private fun extractPerformers(album: JSONObject): Set<Performer> =
+  private fun extractPerformers(album: JSONObject): List<Performer> =
     album.getJSONArray("performers")
       .let {
-        val performers = mutableSetOf<Performer>()
+        val performers = mutableListOf<Performer>()
         for (i in 0 until it.length()) {
           val performer = it.getJSONObject(i)
           performers.add(
-            element = Performer(
+            Performer(
               id = performer.getInt("id"),
               name = performer.getString("name"),
               image = performer.getString("image"),
@@ -79,5 +79,22 @@ class AlbumServiceAdapter constructor(context: Context) {
           )
         }
         performers
+      }
+
+  private fun extractTracks(album: JSONObject): List<Track> =
+    album.getJSONArray("tracks")
+      .let {
+        val tracks = mutableListOf<Track>()
+        for (i in 0 until it.length()) {
+          val track = it.getJSONObject(i)
+          tracks.add(
+            Track(
+              id = track.getInt("id"),
+              name = track.getString("name"),
+              duration = track.getString("duration")
+            )
+          )
+        }
+        tracks
       }
 }
