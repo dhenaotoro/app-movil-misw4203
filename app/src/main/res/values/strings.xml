@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">app-movil-misw4203</string>
     <string name="action_settings">Settings</string>
+    <string name="new_entity">Crear Album</string>
 
     <string name="menu_album">Album</string>
     <string name="menu_artist">Artista</string>
@@ -15,9 +16,13 @@
     <string name="performer_row">Album</string>
     <string name="album_description">Albumes</string>
     <string name="album_description_parte2">Busca tu album favorito</string>
+    <string name="new_album_description">Crea tu album favorito</string>
+    <string name="new_album_description_parte2">Rellena los siguientes campos</string>
     <string name="collection_description">Colecciones</string>
     <string name="collection_description_parte2">Busca tu colección favorito</string>
     <string name="artist_description">Artistas</string>
     <string name="artist_description_parte2">Busca tu artista favorito</string>
     <string name="descr_overflow_button">Click aqui para ver mas detalles</string>
+
+    <string name="album_created">Album creado exitosamente</string>
 </resources>

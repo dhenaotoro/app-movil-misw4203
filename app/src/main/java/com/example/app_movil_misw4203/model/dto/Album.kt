@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Album (
-  val id: Int,
+  val id: Int = 0,
   val name: String,
   val cover: String,
   val releaseDate: String,

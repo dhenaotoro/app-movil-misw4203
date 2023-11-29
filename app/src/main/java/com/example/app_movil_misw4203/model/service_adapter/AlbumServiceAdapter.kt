@@ -4,12 +4,23 @@ import android.content.Context
 import com.example.app_movil_misw4203.model.dto.Album
 import com.example.app_movil_misw4203.model.broker.VolleyBroker
 import com.example.app_movil_misw4203.model.dto.Performer
+
+import com.google.gson.Gson
 import com.example.app_movil_misw4203.model.dto.Track
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+
+data class AlbumBack (
+  val name: String,
+  val cover: String,
+  val releaseDate: String,
+  val description: String,
+  val genre: String,
+  val recordLabel: String,
+)
 
 class AlbumServiceAdapter constructor(context: Context) {
   companion object{
@@ -97,4 +108,43 @@ class AlbumServiceAdapter constructor(context: Context) {
         }
         tracks
       }
+
+  suspend fun postAlbum(album: Album) : Album = suspendCoroutine {cont ->
+    println("Creando album ${Gson().toJson(AlbumBack(
+      name = album.name,
+      cover = album.cover,
+      releaseDate = album.releaseDate,
+      description =  album.description,
+      genre = album.genre,
+      recordLabel = album.recordLabel,
+    ))}")
+    broker.instance.add(
+      VolleyBroker.postRequest(
+        "albums",
+        JSONObject(Gson().toJson(AlbumBack(
+          name = album.name,
+          cover = album.cover,
+          releaseDate = album.releaseDate,
+          description =  album.description,
+          genre = album.genre,
+          recordLabel = album.recordLabel,
+        ))),
+        { album ->
+          cont.resume(Album(
+            id = album.getInt("id"),
+            name = album.getString("name"),
+            cover = album.getString("cover"),
+            releaseDate = album.getString("releaseDate"),
+            description = album.getString("description"),
+            genre = album.getString("genre"),
+            recordLabel = album.getString("recordLabel")
+          ))
+        }
+      ) { errorContent ->
+        println("Ocurrio la siguiente respuesta de red: ${errorContent.networkResponse}")
+        println("Mensaje de error: ${errorContent.message}")
+        cont.resumeWithException(errorContent)
+      }
+    )
+  }
 }

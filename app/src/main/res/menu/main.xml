@@ -9,4 +9,11 @@
     android:title="@string/action_settings"
     app:showAsAction="never"
   />
+  <item
+      android:id="@+id/action_new_entity"
+      android:orderInCategory="200"
+      android:icon="@drawable/ic_action_new_entity"
+      android:title="@string/new_entity"
+      app:showAsAction="ifRoom"
+  />
 </menu>
