@@ -27,7 +27,7 @@ class ArtistServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  suspend fun getArtists() : MutableList<Artist> = suspendCoroutine { cont ->
+  suspend fun getArtists() : List<Artist> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "musicians",

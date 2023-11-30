@@ -7,16 +7,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.app_movil_misw4203.model.database.AppDatabase
 import com.example.app_movil_misw4203.model.dto.Artist
 import com.example.app_movil_misw4203.model.repository.ArtistRepository
-import com.example.app_movil_misw4203.model.service_adapter.ArtistServiceAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class ArtistViewModel(application: Application) :  AndroidViewModel(application) {
 
-  private val artistRepository = ArtistRepository(application)
+  private val artistRepository = ArtistRepository(application, AppDatabase.getDatabase(application.applicationContext).artistDao())
 
   private val _artists = MutableLiveData<List<Artist>>()
 

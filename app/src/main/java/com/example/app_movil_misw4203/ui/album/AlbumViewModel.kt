@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.app_movil_misw4203.model.database.AppDatabase
 import com.example.app_movil_misw4203.model.dto.Album
 import com.example.app_movil_misw4203.model.repository.AlbumRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class AlbumViewModel(application: Application) :  AndroidViewModel(application) {
 
-  private val albumRepository = AlbumRepository(application)
+  private val albumRepository = AlbumRepository(application, AppDatabase.getDatabase(application.applicationContext).albumDao())
 
   private val _albums = MutableLiveData<List<Album>>()
   private val _album = MutableLiveData<Album>()

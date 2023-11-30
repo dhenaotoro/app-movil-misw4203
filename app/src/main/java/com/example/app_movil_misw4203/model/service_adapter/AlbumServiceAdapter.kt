@@ -37,7 +37,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  suspend fun getAlbums() : MutableList<Album> = suspendCoroutine { cont ->
+  suspend fun getAlbums() : List<Album> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "albums",
