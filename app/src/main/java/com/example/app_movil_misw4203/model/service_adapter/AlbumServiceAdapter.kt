@@ -37,15 +37,16 @@ class AlbumServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  suspend fun getAlbums() : MutableList<Album> = suspendCoroutine { cont ->
+  suspend fun getAlbums() : List<Album> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "albums",
         { response ->
           val responseToJSONArray = JSONArray(response)
           val albums = mutableListOf<Album>()
+          var album: JSONObject? = null
           for (i in 0 until responseToJSONArray.length()) {
-            val album = responseToJSONArray.getJSONObject(i)
+            album = responseToJSONArray.getJSONObject(i)
             println(album.toString())
             albums.add(
               index = i,
@@ -76,8 +77,9 @@ class AlbumServiceAdapter constructor(context: Context) {
     album.getJSONArray("performers")
       .let {
         val performers = mutableListOf<Performer>()
+        var performer: JSONObject? = null
         for (i in 0 until it.length()) {
-          val performer = it.getJSONObject(i)
+          performer = it.getJSONObject(i)
           performers.add(
             Performer(
               id = performer.getInt("id"),
@@ -96,8 +98,9 @@ class AlbumServiceAdapter constructor(context: Context) {
     album.getJSONArray("tracks")
       .let {
         val tracks = mutableListOf<Track>()
+        var track: JSONObject? = null
         for (i in 0 until it.length()) {
-          val track = it.getJSONObject(i)
+          track = it.getJSONObject(i)
           tracks.add(
             Track(
               id = track.getInt("id"),

@@ -1,5 +1,7 @@
 package com.example.app_movil_misw4203.ui.album
 
+import AppMain
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +30,7 @@ class AlbumFragment : Fragment() {
     savedInstanceState: Bundle?
   ): View {
     val albumViewModel =
-      ViewModelProvider(this)[AlbumViewModel::class.java]
+      ViewModelProvider(this, AlbumViewModel.Factory(activity?.application ?: Application()))[AlbumViewModel::class.java]
     _binding = FragmentAlbumBinding.inflate(inflater, container, false)
     val root: View = binding.root
     val albumRecyclerView: RecyclerView = binding.albumRecyclerView

@@ -28,8 +28,7 @@
         android:layout_marginBottom="4dp"
       />
       <ImageView
-        android:id="@+id/collector_image"
-        android:layout_width="340dp"
+          android:layout_width="340dp"
         android:layout_height="310dp"
         android:layout_marginStart="32dp"
         android:src="@drawable/collectors"
@@ -48,8 +47,7 @@
         android:textStyle="bold"
       />
       <TextView
-        android:id="@+id/collector_pre_phone"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/collector_row_phone"
@@ -65,8 +63,7 @@
         android:textSize="14sp"
       />
       <TextView
-        android:id="@+id/collector_pre_mail"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/collector_row_mail"
@@ -82,8 +79,7 @@
         android:textSize="14sp"
       />
       <TextView
-        android:id="@+id/collector_pre_artist"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/collector_row_artist"
