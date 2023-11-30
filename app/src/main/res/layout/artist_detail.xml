@@ -55,8 +55,7 @@
         android:textSize="14sp"
       />
       <TextView
-        android:id="@+id/artist_pre_date"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/artist_row_date"
@@ -72,8 +71,7 @@
         android:textSize="14sp"
       />
       <TextView
-        android:id="@+id/artist_pre_awards"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/artist_row_awards"

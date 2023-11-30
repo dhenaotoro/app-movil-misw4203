@@ -24,9 +24,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/artists"
         />
->
+
     <LinearLayout
-        android:id="@+id/artist_info"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="15dp"
