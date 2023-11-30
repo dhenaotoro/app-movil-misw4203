@@ -34,8 +34,9 @@ class ArtistServiceAdapter constructor(context: Context) {
         { response ->
           val responseToJSONArray = JSONArray(response)
           val artists = mutableListOf<Artist>()
+          var artist: JSONObject? = null
           for (i in 0 until responseToJSONArray.length()) {
-            val artist = responseToJSONArray.getJSONObject(i)
+            artist = responseToJSONArray.getJSONObject(i)
             println(artist.toString())
             artists.add(
               index = i,
