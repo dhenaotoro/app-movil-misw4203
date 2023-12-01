@@ -45,6 +45,7 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+          android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/artistImage"
       />
@@ -56,6 +57,7 @@
         android:text="@string/artist_description_parte2"
         android:textAlignment="center"
         android:textSize="14sp"
+          android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/description_artist"
       />

@@ -79,7 +79,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/group_name_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:inputType="text"
                     android:paddingStart="10dp"
@@ -103,7 +103,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/group_cover_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:inputType="text"
                     android:paddingStart="10dp"
@@ -127,7 +127,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/group_date_edit_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_gravity="center_horizontal"
                     android:inputType="datetime"
                     android:paddingStart="10dp"
