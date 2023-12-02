@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.app_movil_misw4203.model.database.AppDatabase
 import com.example.app_movil_misw4203.model.dto.Album
+import com.example.app_movil_misw4203.model.dto.Track
 import com.example.app_movil_misw4203.model.repository.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +24,11 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
 
   val albums: LiveData<List<Album>>
     get() = _albums
+
+  private val _trackAssociated = MutableLiveData<String>()
+
+  val trackAssociated: LiveData<String>
+    get() = _trackAssociated
 
   val album: LiveData<Album>
     get() = _album
@@ -70,6 +76,19 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
     }
   }
 
+  fun associateTracksWithAlbum(albumId: Int, track: Track) =
+    try {
+      viewModelScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+          albumRepository.addTrack(albumId, track)
+          _trackAssociated.postValue("Process successfully")
+        }
+        _eventNetworkError.postValue(false)
+        _isNetworkErrorShown.postValue(false)
+      }
+    } catch (e: Exception) {
+      _eventNetworkError.value = true
+    }
   fun onNetworkErrorShown() {
     _isNetworkErrorShown.value = true
   }

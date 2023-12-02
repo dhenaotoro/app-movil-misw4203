@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.databinding.FragmentAlbumBinding
 import com.example.app_movil_misw4203.model.dto.Album
+import com.example.app_movil_misw4203.model.dto.Track
 import com.squareup.picasso.Picasso
 
 class AlbumFragment : Fragment() {

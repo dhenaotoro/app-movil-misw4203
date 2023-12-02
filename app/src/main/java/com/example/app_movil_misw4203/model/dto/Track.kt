@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Track (
-  val id: Int,
+  val id: Int = 0,
   val name: String,
   val duration: String
 ) : Parcelable {
@@ -27,6 +27,9 @@ data class Track (
 
   companion object CREATOR : Parcelable.Creator<Track> {
     override fun createFromParcel(parcel: Parcel): Track {
+      println("Leyendo informacion principal de objecto Track")
+      println(parcel.readInt())
+      println(parcel.readString())
       return Track(parcel)
     }
     override fun newArray(size: Int): Array<Track?> {

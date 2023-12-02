@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import com.example.app_movil_misw4203.model.database.dao.AlbumDao
 import com.example.app_movil_misw4203.model.service_adapter.AlbumServiceAdapter
 import com.example.app_movil_misw4203.model.dto.Album
+import com.example.app_movil_misw4203.model.dto.Track
 
 class AlbumRepository (
   val application: Application,
@@ -35,4 +36,6 @@ class AlbumRepository (
   }
 
   suspend fun createAlbum(album: Album) : Album = AlbumServiceAdapter.getInstance(application).postAlbum(album)
+
+  suspend fun addTrack(idTrack: Int, track: Track) = AlbumServiceAdapter.getInstance(application).postTrack(idTrack, track)
 }

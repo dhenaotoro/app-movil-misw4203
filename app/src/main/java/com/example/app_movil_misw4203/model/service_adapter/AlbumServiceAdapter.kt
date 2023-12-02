@@ -13,13 +13,18 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-data class AlbumBack (
+data class AlbumBackendEntity (
   val name: String,
   val cover: String,
   val releaseDate: String,
   val description: String,
   val genre: String,
   val recordLabel: String,
+)
+
+data class TrackBackendEntity (
+  val name: String,
+  val duration: String,
 )
 
 class AlbumServiceAdapter constructor(context: Context) {
@@ -113,7 +118,7 @@ class AlbumServiceAdapter constructor(context: Context) {
       }
 
   suspend fun postAlbum(album: Album) : Album = suspendCoroutine {cont ->
-    println("Creando album ${Gson().toJson(AlbumBack(
+    println("Creando album ${Gson().toJson(AlbumBackendEntity(
       name = album.name,
       cover = album.cover,
       releaseDate = album.releaseDate,
@@ -124,7 +129,7 @@ class AlbumServiceAdapter constructor(context: Context) {
     broker.instance.add(
       VolleyBroker.postRequest(
         "albums",
-        JSONObject(Gson().toJson(AlbumBack(
+        JSONObject(Gson().toJson(AlbumBackendEntity(
           name = album.name,
           cover = album.cover,
           releaseDate = album.releaseDate,
@@ -141,6 +146,33 @@ class AlbumServiceAdapter constructor(context: Context) {
             description = album.getString("description"),
             genre = album.getString("genre"),
             recordLabel = album.getString("recordLabel")
+          ))
+        }
+      ) { errorContent ->
+        println("Ocurrio la siguiente respuesta de red: ${errorContent.networkResponse}")
+        println("Mensaje de error: ${errorContent.message}")
+        cont.resumeWithException(errorContent)
+      }
+    )
+  }
+
+  suspend fun postTrack(idTrack: Int, track: Track) = suspendCoroutine { cont ->
+    println("Asociando track $idTrack con ${Gson().toJson(TrackBackendEntity(
+      name = track.name,
+      duration = track.duration,
+    ))}")
+    broker.instance.add(
+      VolleyBroker.postRequest(
+        "albums/$idTrack/tracks",
+        JSONObject(Gson().toJson(TrackBackendEntity(
+          name = track.name,
+          duration = track.duration,
+        ))),
+        { track ->
+          cont.resume(Track(
+            id = track.getInt("id"),
+            name = track.getString("name"),
+            duration = track.getString("duration")
           ))
         }
       ) { errorContent ->
