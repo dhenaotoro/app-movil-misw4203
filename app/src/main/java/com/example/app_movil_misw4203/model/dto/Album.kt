@@ -1,7 +1,9 @@
 package com.example.app_movil_misw4203.model.dto
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
 
 data class Album (
   val id: Int = 0,
@@ -15,6 +17,7 @@ data class Album (
   val performers: List<Performer> = emptyList(),
   val comments: List<String> = emptyList()
 ) : Parcelable {
+
 
   constructor(parcel: Parcel) : this(
     parcel.readInt(),
