@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProvider
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.model.dto.Album
 import com.squareup.picasso.Picasso
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.app_movil_misw4203.model.dto.Track
 import com.example.app_movil_misw4203.model.service_adapter.TrackAdapter
 
 class AlbumDetailActivity : AppCompatActivity() {
+  private lateinit var albumViewModel: AlbumViewModel
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.album_detail)
+
+    albumViewModel = ViewModelProvider(this, AlbumViewModel.Factory(application))[AlbumViewModel::class.java]
 
     val album = intent.getParcelableExtra<Album>("album")
 
@@ -23,6 +27,8 @@ class AlbumDetailActivity : AppCompatActivity() {
     val albumPhoneTextView: TextView = findViewById(R.id.album_description)
     val albumImageView: ImageView = findViewById(R.id.album_image)
     val albumTrackRecyclerView: RecyclerView = findViewById(R.id.album_track_recycler_view)
+    val openFragmentButton: ImageView = findViewById(R.id.button_open_fragment)
+    val backToAlbumListButton: ImageView = findViewById(R.id.button_back_album)
 
     albumNameTextView.text = album?.name
     albumPhoneTextView.text = album?.description
@@ -30,15 +36,38 @@ class AlbumDetailActivity : AppCompatActivity() {
       Picasso.get().load(it).into(albumImageView)
     }
 
+    album?.let {
+      albumViewModel.refreshAlbumsTracks(it.id)
+    }
+
     albumTrackRecyclerView.layoutManager = LinearLayoutManager(this)
-    val trackAdapter = TrackAdapter(album?.tracks ?: emptyList())
-    albumTrackRecyclerView.adapter = trackAdapter
+    albumViewModel.tracks.observe(this, { tracks ->
+      val trackAdapter = TrackAdapter(tracks)
+      albumTrackRecyclerView.adapter = trackAdapter
+    })
 
     supportActionBar?.title = "Detalle del album"
 
-    val backToAlbumListButton: ImageView = findViewById(R.id.button_back_album)
     backToAlbumListButton.setOnClickListener {
       onBackPressed()
     }
+
+    openFragmentButton.setOnClickListener {
+      try {
+        println("1")
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val fragment = AlbumDetailTracks()
+        println("2")
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        println("3")
+        fragmentTransaction.addToBackStack(null)
+        println("4")
+        fragmentTransaction.commit()
+        println("5")
+      } catch (e: Exception) {
+        println("Error!: ${e.localizedMessage}")
+      }
+    }
+
   }
 }

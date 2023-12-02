@@ -150,4 +150,33 @@ class AlbumServiceAdapter constructor(context: Context) {
       }
     )
   }
+
+  suspend fun getTracksForAlbum(albumId: Int): List<Track> = suspendCoroutine { cont ->
+    broker.instance.add(
+      VolleyBroker.getRequest(
+        "albums/$albumId/tracks",
+        { response ->
+          val responseToJSONArray = JSONArray(response)
+          val tracks = mutableListOf<Track>()
+          var track: JSONObject? = null
+          for (i in 0 until responseToJSONArray.length()) {
+            track = responseToJSONArray.getJSONObject(i)
+            tracks.add(
+              Track(
+                id = track.getInt("id"),
+                name = track.getString("name"),
+                duration = track.getString("duration")
+              )
+            )
+          }
+          cont.resume(tracks)
+        }
+      ) { errorContent ->
+        println(errorContent.networkResponse)
+        println(errorContent.message)
+        cont.resumeWithException(errorContent)
+      }
+    )
+  }
+
 }

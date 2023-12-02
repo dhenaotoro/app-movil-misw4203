@@ -44,5 +44,10 @@
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         </activity>
+        <activity
+          android:name=".ui.album.AlbumDetailTracks"
+          android:label="AlbumDetailTracksFragment"
+          android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        </activity>
     </application>
 </manifest>

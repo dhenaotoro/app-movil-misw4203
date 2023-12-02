@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.app_movil_misw4203.model.database.AppDatabase
 import com.example.app_movil_misw4203.model.dto.Album
+import com.example.app_movil_misw4203.model.dto.Track
 import com.example.app_movil_misw4203.model.repository.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,8 +38,27 @@ class AlbumViewModel(application: Application) :  AndroidViewModel(application) 
   val isNetworkErrorShown: LiveData<Boolean>
     get() = _isNetworkErrorShown
 
+  private val _tracks = MutableLiveData<List<Track>>()
+
+  val tracks: LiveData<List<Track>>
+    get() = _tracks
+
   init {
     refreshAlbumsFromNetwork()
+  }
+
+  fun refreshAlbumsTracks(albumId: Int) {
+    try {
+      viewModelScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+          _tracks.postValue(albumRepository.getTracksForAlbum(albumId))
+        }
+        _eventNetworkError.postValue(false)
+        _isNetworkErrorShown.postValue(false)
+      }
+    } catch (e: Exception) {
+      _eventNetworkError.value = true
+    }
   }
 
   private fun refreshAlbumsFromNetwork() =
