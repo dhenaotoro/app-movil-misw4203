@@ -21,8 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-      android:id="@+id/imageView3"
-      android:layout_width="412dp"
+        android:layout_width="412dp"
       android:layout_height="351dp"
       android:src="@drawable/home"
       app:layout_constraintEnd_toEndOf="parent"

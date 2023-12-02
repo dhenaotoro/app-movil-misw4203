@@ -4,9 +4,15 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
 >
   <item
-    android:id="@+id/action_settings"
-    android:orderInCategory="100"
+      android:orderInCategory="100"
     android:title="@string/action_settings"
     app:showAsAction="never"
+  />
+  <item
+      android:id="@+id/action_new_entity"
+      android:orderInCategory="200"
+      android:icon="@drawable/ic_action_new_entity"
+      android:title="@string/new_entity"
+      app:showAsAction="ifRoom"
   />
 </menu>

@@ -8,14 +8,12 @@
   tools:context=".ui.artist.ArtistFragment"
 >
   <ScrollView
-    android:id="@+id/artists_scroll"
-    android:layout_width="match_parent"
+      android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
   >
     <LinearLayout
-      android:id="@+id/artist_main_layout"
-      android:layout_width="match_parent"
+        android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
     >
@@ -47,18 +45,19 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
+          android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/artistImage"
       />
       <TextView
-        android:id="@+id/description_artist_part2"
-        android:layout_width="wrap_content"
+          android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
         android:text="@string/artist_description_parte2"
         android:textAlignment="center"
         android:textSize="14sp"
+          android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/artistImage"
         app:layout_constraintTop_toBottomOf="@+id/description_artist"
       />

@@ -8,14 +8,12 @@
   tools:context=".ui.album.AlbumFragment"
 >
   <ScrollView
-    android:id="@+id/albums_scroll"
-    android:layout_width="match_parent"
+      android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingConstraints"
   >
     <LinearLayout
-      android:id="@+id/album_main_layout"
-      android:layout_width="match_parent"
+        android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
     >
@@ -47,11 +45,11 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/albumImage"
             app:layout_constraintTop_toBottomOf="@+id/albumImage" />
 
         <TextView
-            android:id="@+id/description_album_part2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
@@ -59,6 +57,7 @@
             android:text="@string/album_description_parte2"
             android:textAlignment="center"
             android:textSize="14sp"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/albumImage"
             app:layout_constraintTop_toBottomOf="@+id/description_album" />
 

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.app_movil_misw4203.model.database.AppDatabase
 import com.example.app_movil_misw4203.model.dto.Collector
 import com.example.app_movil_misw4203.model.repository.CollectorRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +16,7 @@ import kotlinx.coroutines.withContext
 
 class CollectorViewModel(application: Application) :  AndroidViewModel(application) {
 
-  private val collectorRepository = CollectorRepository(application)
+  private val collectorRepository = CollectorRepository(application, AppDatabase.getDatabase(application.applicationContext).collectorDao())
 
   private val _collector = MutableLiveData<List<Collector>>()
 

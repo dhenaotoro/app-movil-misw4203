@@ -27,15 +27,16 @@ class ArtistServiceAdapter constructor(context: Context) {
     VolleyBroker(context)
   }
 
-  suspend fun getArtists() : MutableList<Artist> = suspendCoroutine { cont ->
+  suspend fun getArtists() : List<Artist> = suspendCoroutine { cont ->
     broker.instance.add(
       VolleyBroker.getRequest(
         "musicians",
         { response ->
           val responseToJSONArray = JSONArray(response)
           val artists = mutableListOf<Artist>()
+          var artist: JSONObject? = null
           for (i in 0 until responseToJSONArray.length()) {
-            val artist = responseToJSONArray.getJSONObject(i)
+            artist = responseToJSONArray.getJSONObject(i)
             println(artist.toString())
             artists.add(
               index = i,
