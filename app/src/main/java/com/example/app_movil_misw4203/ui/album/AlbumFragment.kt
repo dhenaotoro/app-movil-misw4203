@@ -78,11 +78,8 @@ class CustomAdapter(private val dataSet: List<Album>) :
         else -> it.first().name
       }
     }
-
     viewHolder.itemView.setOnClickListener {
       val album = dataSet[position]
-      println("Album!: ${dataSet[position]}")
-      println("Tracks Main!: ${dataSet[position].tracks}")
       val intent = Intent(viewHolder.itemView.context, AlbumDetailActivity::class.java)
       intent.putExtra("album", album)
       viewHolder.itemView.context.startActivity(intent)
