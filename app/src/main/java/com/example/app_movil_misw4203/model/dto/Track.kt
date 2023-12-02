@@ -27,6 +27,9 @@ data class Track (
 
   companion object CREATOR : Parcelable.Creator<Track> {
     override fun createFromParcel(parcel: Parcel): Track {
+      println("Leyendo informacion principal de objecto Track")
+      println(parcel.readInt())
+      println(parcel.readString())
       return Track(parcel)
     }
     override fun newArray(size: Int): Array<Track?> {
