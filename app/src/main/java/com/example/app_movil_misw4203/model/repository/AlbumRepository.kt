@@ -35,6 +35,8 @@ class AlbumRepository (
     }
   }
 
+  suspend fun getTracksForAlbum(albumId: Int): List<Track> = AlbumServiceAdapter.getInstance(application).getTracksForAlbum(albumId)
+
   suspend fun createAlbum(album: Album) : Album = AlbumServiceAdapter.getInstance(application).postAlbum(album)
 
   suspend fun addTrack(idTrack: Int, track: Track) = AlbumServiceAdapter.getInstance(application).postTrack(idTrack, track)
