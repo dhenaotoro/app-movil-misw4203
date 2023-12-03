@@ -25,7 +25,6 @@
         />
 
         <LinearLayout
-            android:id="@+id/album_info"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="15dp"

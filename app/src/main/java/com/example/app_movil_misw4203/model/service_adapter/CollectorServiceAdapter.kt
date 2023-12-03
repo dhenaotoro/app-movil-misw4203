@@ -34,8 +34,9 @@ class CollectorServiceAdapter constructor(context: Context) {
                 { response ->
                     val responseToJSONArray = JSONArray(response)
                     val collectors = mutableListOf<Collector>()
+                    var collector: JSONObject? = null
                     for (i in 0 until responseToJSONArray.length()) {
-                        val collector = responseToJSONArray.getJSONObject(i)
+                        collector = responseToJSONArray.getJSONObject(i)
                         collectors.add(
                             index = i,
                             element = Collector(
@@ -62,8 +63,9 @@ class CollectorServiceAdapter constructor(context: Context) {
         val performers = mutableSetOf<Performer>()
 
         favoriteArtistsArray?.let {
+            var performer: JSONObject? = null
             for (i in 0 until it.length()) {
-                val performer = it.getJSONObject(i)
+                performer = it.getJSONObject(i)
                 performers.add(
                     Performer(
                         id = performer.getInt("id"),
