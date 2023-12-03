@@ -178,6 +178,10 @@ class AlbumServiceAdapter constructor(context: Context) {
       ) { errorContent ->
         println(errorContent.networkResponse)
         println(errorContent.message)
+      }
+    )
+  }
+
   suspend fun postTrack(idTrack: Int, track: Track) = suspendCoroutine { cont ->
     println("Asociando track $idTrack con ${Gson().toJson(TrackBackendEntity(
       name = track.name,

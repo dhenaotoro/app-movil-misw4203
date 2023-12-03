@@ -8,12 +8,11 @@
   android:orientation="vertical"
   tools:context=".ui.album.AlbumDetailTracks"
 >
-
-  <TextView
-    android:id="@+id/test"
-    android:layout_width="wrap_content"
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/track_lists"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Nuevo Fragmento"
+    android:layout_marginTop="16dp"
+    android:text="No hay canciones disponibles"
   />
-
 </LinearLayout>
