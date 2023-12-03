@@ -1,10 +1,10 @@
 package com.example.app_movil_misw4203.ui.album
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.example.app_movil_misw4203.R
 import com.example.app_movil_misw4203.model.dto.Album
@@ -54,16 +54,11 @@ class AlbumDetailActivity : AppCompatActivity() {
 
     openFragmentButton.setOnClickListener {
       try {
-        println("1")
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         val fragment = AlbumDetailTracks()
-        println("2")
         fragmentTransaction.replace(R.id.fragment_container, fragment)
-        println("3")
         fragmentTransaction.addToBackStack(null)
-        println("4")
         fragmentTransaction.commit()
-        println("5")
       } catch (e: Exception) {
         println("Error!: ${e.localizedMessage}")
       }
